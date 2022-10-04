@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login form </title>
+
+    <style>
+      #user {
+        display: inline-grid;
+        padding: 10px;
+      }
+      #pass {
+        display: inline-grid;
+      }
+      #submit {
+        padding-left: 10px;
+      }
+      input {
+        cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+
+    <form action="LoginServlet" method="post">
+      <div id="user">
+        <label>Username:</label>
+        <input type="text" id="username" name="username"><br>
+      </div>
+      <div id="pass">
+        <label>Password:</label>
+        <input type="password" id="password" name="password"><br>
+      </div>
+      <div id="submit">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+
+</body>
+</html>
