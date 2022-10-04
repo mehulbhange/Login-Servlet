@@ -13,11 +13,7 @@ import java.util.regex.Pattern;
 
 @WebServlet(
         description = "Login servlet testing",
-        urlPatterns = {"/LoginServlet"},
-        initParams = {
-                @WebInitParam(name = "username", value = "Mehul"),
-                @WebInitParam(name = "password", value = "Password")
-        }
+        urlPatterns = {"/LoginServlet"}
 )
 public class LoginServlet extends HttpServlet {
     @Override
@@ -26,11 +22,7 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        //get servlet config init params
-        //String userId = getServletConfig().getInitParameter("username");
-        String pass = getServletConfig().getInitParameter("password");
-
-        if (isNameValid(username) && password.equals(pass)){
+        if (isNameValid(username) && isPasswordValid(password)){
             req.setAttribute("username", username);
             req.getRequestDispatcher("loginSuccess.jsp").forward(req,resp);
         }else{
@@ -44,6 +36,10 @@ public class LoginServlet extends HttpServlet {
 
     public boolean isNameValid(String name){
         return Pattern.compile("[A-Z][a-z]{2,}").matcher(name).matches();
+    }
+
+    public boolean isPasswordValid(String password){
+        return Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=[^@#$%^&*+=]*[@#$%^&*+=][^@#$%^&*+=]*$).{8,}$").matcher(password).matches();
     }
 
 }
