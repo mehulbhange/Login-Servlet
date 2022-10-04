@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 @WebServlet(
         description = "Login servlet testing",
@@ -26,10 +27,10 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         //get servlet config init params
-        String userId = getServletConfig().getInitParameter("username");
+        //String userId = getServletConfig().getInitParameter("username");
         String pass = getServletConfig().getInitParameter("password");
 
-        if (username.equals(userId) && password.equals(pass)){
+        if (isNameValid(username) && password.equals(pass)){
             req.setAttribute("username", username);
             req.getRequestDispatcher("loginSuccess.jsp").forward(req,resp);
         }else{
@@ -40,4 +41,9 @@ public class LoginServlet extends HttpServlet {
             out.close();
         }
     }
+
+    public boolean isNameValid(String name){
+        return Pattern.compile("[A-Z][a-z]{2,}").matcher(name).matches();
+    }
+
 }
